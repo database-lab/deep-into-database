@@ -5,16 +5,96 @@ import redis.clients.jedis.Jedis;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Scanner;
 
-public class Main 
+public class Main
 {
 
     private static Path initialData = Path.of("NYSE_20210301.csv");
+    private static Jedis jedis = new Jedis();
+
+    public static Boolean create(String key, String value)
+    {
+        try {
+            jedis.append(key, value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static Boolean fetch(String key)
+    {
+        try {
+            String value = jedis.get(key);
+            System.out.println(value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static Boolean update(String key, String value)
+    {
+        try {
+            jedis.set(key, value);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static Boolean delete(String key)
+    {
+        try {
+            jedis.del(key);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static void execute()
+    {
+        Scanner scanner = new Scanner(System.in);
+        String commandLine;
+        String[] parts;
+        while (true)
+        {
+            commandLine = scanner.nextLine();
+            parts = commandLine.split(" ");
+            switch (parts[0])
+            {
+                case "create":
+                    System.out.println( create(parts[1], parts[2]) );
+                    break;
+                case "fetch":
+                    System.out.println( fetch(parts[1]) );
+                    break;
+                case "update":
+                    System.out.println( update(parts[1], parts[2]) );
+                    break;
+                case "delete":
+                    System.out.println( delete(parts[1]) );
+                    break;
+                case "exit":
+                    return;
+                default:
+                    System.out.println("Error : Wrong input");
+            }
+        }
+    }
 
     public static void main(String[] args)
     {
-        Jedis jedis = new Jedis();
-        System.out.println(jedis.ping("Connection OK 200"));
+        try {
+            System.out.println(jedis.ping("Connection OK 200"));
+        } catch (Exception e) {
+            System.out.println("Error : Something went wrong during connection to Redis Server");
+            return;
+        }
+
+        execute();
 
         try {
             jedis.lpush("CSV_DATA", new String(Files.readAllBytes(initialData)));
