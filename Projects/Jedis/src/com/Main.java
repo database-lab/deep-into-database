@@ -9,10 +9,17 @@ import java.util.Scanner;
 
 public class Main
 {
-
+    // The csv data file we use to create the base database
     private static Path initialData = Path.of("NYSE_20210301.csv");
+    // Our redis client in java
     private static Jedis jedis = new Jedis();
 
+    /**
+     * Creating a new set of key, value
+     * @param key
+     * @param value
+     * @return results of creation
+     */
     public static Boolean create(String key, String value)
     {
         try {
@@ -25,6 +32,11 @@ public class Main
         }
     }
 
+    /**
+     * Searching for a value with its key
+     * @param key
+     * @return results of searching
+     */
     public static Boolean fetch(String key)
     {
         try {
@@ -37,6 +49,12 @@ public class Main
         }
     }
 
+    /**
+     * Updating a value with its key
+     * @param key
+     * @param value
+     * @return results of updating
+     */
     public static Boolean update(String key, String value)
     {
         try {
@@ -49,6 +67,11 @@ public class Main
         }
     }
 
+    /**
+     * Deleting a key, value set
+     * @param key
+     * @return results of deletion
+     */
     public static Boolean delete(String key)
     {
         try {
@@ -58,6 +81,10 @@ public class Main
         }
     }
 
+    /**
+     * The program loop method
+     *
+     */
     public static void execute()
     {
         Scanner scanner = new Scanner(System.in);
@@ -91,6 +118,7 @@ public class Main
 
     public static void main(String[] args)
     {
+        // First connection to redis server
         try {
             System.out.println(jedis.ping("Connection OK 200"));
             jedis.flushAll();
@@ -99,13 +127,24 @@ public class Main
             return;
         }
 
+        // Importing the csv file
+        try {
+            String data = new String(Files.readAllBytes(initialData));
+            String[] rows = data.split("\n");
+            for (String row : rows)
+            {
+                String[] parts = row.split(",");
+                jedis.set(parts[0], parts[1]);
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        // Program starts
         execute();
 
-        try {
-            jedis.lpush("CSV_DATA", new String(Files.readAllBytes(initialData)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Closing the redis client
         jedis.close();
     }
 }
