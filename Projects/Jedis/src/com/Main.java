@@ -16,7 +16,9 @@ public class Main
     public static Boolean create(String key, String value)
     {
         try {
-            jedis.append(key, value);
+            if ( jedis.get(key) != null )
+                throw new Exception();
+            jedis.set(key, value);
             return true;
         } catch (Exception e) {
             return false;
@@ -27,8 +29,9 @@ public class Main
     {
         try {
             String value = jedis.get(key);
-            System.out.println(value);
-            return true;
+            if ( value != null )
+                System.out.println(value);
+            return value != null;
         } catch (Exception e) {
             return false;
         }
@@ -37,6 +40,8 @@ public class Main
     public static Boolean update(String key, String value)
     {
         try {
+            if ( jedis.get(key) == null )
+                throw new Exception();
             jedis.set(key, value);
             return true;
         } catch (Exception e) {
@@ -47,8 +52,7 @@ public class Main
     public static Boolean delete(String key)
     {
         try {
-            jedis.del(key);
-            return true;
+            return  jedis.del(key) == 1;
         } catch (Exception e) {
             return false;
         }
@@ -89,6 +93,7 @@ public class Main
     {
         try {
             System.out.println(jedis.ping("Connection OK 200"));
+            jedis.flushAll();
         } catch (Exception e) {
             System.out.println("Error : Something went wrong during connection to Redis Server");
             return;
