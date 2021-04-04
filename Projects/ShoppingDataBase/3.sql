@@ -16,7 +16,8 @@ create table user
     credit int,
     -- 
     primary key (ID),
-    foreign key (referred_by) references user(id),
+    foreign key (referred_by) references user(id)
+		on delete set null,
     check (credit >= 0)
 );
 
@@ -64,13 +65,15 @@ create table orders
     estimated_value int,
     price int,
     is_round_trip int,
-    start_time date,
-    finish_time date,
+    start_time timestamp,
+    finish_time timestamp,
     score int,
     --
     primary key (id),
-    foreign key (user_id) references user(id),
-    foreign key (driver_id) references driver(id),
+    foreign key (user_id) references user(id)
+		on delete cascade,
+    foreign key (driver_id) references driver(id)
+		on delete set null,
 	check (is_round_trip in (0,1)),
     check (score > 0 and score < 6)
 );
@@ -90,9 +93,10 @@ create table payment
     user_id char(5) not null,
     amount int,
     bank varchar(10),
-    time date,
+    time timestamp,
     --
-    foreign key (user_id) references user(id),
+    foreign key (user_id) references user(id)
+		on delete cascade,
     check (amount % 500 = 0),
     check (bank in ('melli', 'sina', 'saman', 'saderat'))
 );
