@@ -39,3 +39,14 @@ create table orders
     foreign key (user_id) references user(id),
     foreign key (driver_id) references driver(id)
 );
+
+create table payment
+(
+	id char(5),
+    user_id char(5),
+    amount int,
+    bank varchar(10),
+    time date,
+    check (amount % 500 = 0),
+    check (bank in ('melli', 'sina', 'saman', 'saderat'))
+);
