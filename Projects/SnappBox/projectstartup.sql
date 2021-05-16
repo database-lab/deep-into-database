@@ -60,8 +60,8 @@ create table driver
 */
 create table orders
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     user_id char(5) not null,
     driver_id char(5) default null,
     estimated_value Toman,
@@ -88,8 +88,8 @@ create table orders
 */
 create table payment
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     user_id char(5) not null,
     amount Toman check (amount % 500 = 0),
     bank varchar(10) check (bank in ('melli', 'sina', 'saman', 'saderat')),
@@ -187,12 +187,12 @@ update users
 select name
 from users
 where users.id not in (  select user_id
-						from orders    );
+			 from orders    );
 
 -- C success
 delete from users
 where users.id not in (  select user_id
-						from orders    );
+			 from orders    );
 
 -- D success
 select id
@@ -203,7 +203,7 @@ where name = "farbod";
 select *
 from users
 where users.cellphone in (   select cellphone
-							from driver      );
+			     from driver      );
 
 -- F success
 create view no_driver_order as 

@@ -29,8 +29,8 @@ CREATE TABLE OS_GRADES (
 SELECT * 
 FROM db_grades 
 WHERE grade >= 12 and student_id not in ( SELECT student_id 
-										  FROM os_grades 
-										  WHERE grade < 12 );
+					  FROM os_grades 
+					  WHERE grade < 12 );
 --
 										  
 -- C 

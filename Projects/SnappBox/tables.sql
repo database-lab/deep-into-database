@@ -8,8 +8,8 @@
 */
 create table user
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     name varchar(20) not null,
     cellphone char(11),
     referred_by char(5) default null,
@@ -32,8 +32,8 @@ create table user
 */
 create table driver
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     name varchar(20) not null,
     cellphone char(11),
     address varchar(50),
@@ -58,8 +58,8 @@ create table driver
 */
 create table orders
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     user_id char(5) not null,
     driver_id char(5) default null,
     estimated_value int,
@@ -88,8 +88,8 @@ create table orders
 */
 create table payment
 (
-	-- Attributes
-	id char(5),
+    -- Attributes
+    id char(5),
     user_id char(5) not null,
     amount int,
     bank varchar(10),
