@@ -1,5 +1,5 @@
 # 25 SQL Problems
-Here is 25 problems that I solved them with SQL queries. Starting with simple queries up to
+Here are 25 problems that I solved them with SQL queries. Starting with simple queries up to
 complex queries.
 
 You can see the problem and the solution query in each problem directory.
