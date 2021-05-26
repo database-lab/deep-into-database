@@ -1,3 +1,3 @@
 # Deep Into DataBase
 
-Our journy to learn database.
+My journy to learn database.
