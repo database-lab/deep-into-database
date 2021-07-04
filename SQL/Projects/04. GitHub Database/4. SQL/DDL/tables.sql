@@ -40,8 +40,8 @@ create table 'organization' (
 /* Relation of user and repos */
 create table 'user_repo' (
     User_Name varchar(20),
-    Repo_Name varchar(20),
-    PRIMARY KEY (User_Name, Repo_Name)
+    Repo_ID int,
+    PRIMARY KEY (User_Name, Repo_ID)
 );
 
 /* Accessing repo files relation */
