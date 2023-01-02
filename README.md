@@ -1,7 +1,7 @@
-# Deep Into DataBase
+<h1 align="center">
+Deep Into Databases
+</h1>
 
-My journy to learn database.
+<br />
 
-Containes learning SQL, MongoDB, Reddis, ....
-
-With all courses and exercises that I took.
+My journy to learn database. Containes learning SQL, MongoDB, Reddis, ...., with all courses and exercises that I took.
