@@ -1,8 +1,4 @@
-<h1 align="center">
-Deep Into SQL
-</h1>
+# SQL
 
-<br />
-
-My journy to learn database. Containes learning SQL with all courses and exercises that I took.
-Everything that I learned from SQL and practiced with SQL.
+Our journy to learn ```SQL``` database including ```SQL```, ```MySQL```, ```SQLite```, and ```PostgrsQL```.
+In this repository we provide courses and resources that we used in order to learn ```SQL```.
