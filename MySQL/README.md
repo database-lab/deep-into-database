@@ -1,6 +1,6 @@
 # MySQL
 
-In this section we are going to talk about ```MySQL``.
+In this section we are going to talk about ```MySQL```.
 
 ## What is MySQL?
 
